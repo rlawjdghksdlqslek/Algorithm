@@ -7,7 +7,7 @@ public class Main {
 
         int N = Integer.parseInt(br.readLine());
 
-        int[] distance = new int[N];
+        int[] distance = new int[N - 1];
         int[] price = new int[N];
 
 
@@ -22,13 +22,14 @@ public class Main {
             price[i] = Integer.parseInt(priceSt.nextToken());
         }
 
-        int answer = distance[0] * price[0];
-        for (int i = 1; i < N; i++) {
-            if (price[i] <= price[i-1]) {
-                answer += (distance[i] * price[i]);
-            } else {
-                answer += (distance[i] * price[i-1]);
+        long answer = 0;
+        long minPrice = price[0];
+
+        for (int i = 0; i < N - 1; i++) {
+            if (price[i] <= minPrice) {
+                minPrice = price[i];
             }
+            answer += distance[i] * minPrice;
         }
 
         System.out.println(answer);
