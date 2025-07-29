@@ -1,26 +1,30 @@
 import java.io.*;
 import java.util.*;
-
+ 
 public class Main {
+ 
+    static int N;
+ 
     public static void main(String[] args) throws IOException {
-        Scanner sc = new Scanner(System.in);
-
-        int N = sc.nextInt();
-
-        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        N = Integer.parseInt(st.nextToken());
+        
+        PriorityQueue<Integer> pq = new PriorityQueue<Integer>();
         for (int i = 0; i < N; i++) {
-            pq.add(sc.nextInt());
+            st = new StringTokenizer(br.readLine());
+            pq.add(Integer.parseInt(st.nextToken()));
         }
         int sum = 0;
-
+ 
         while ((pq.size() > 1)) {
             int a = pq.poll();
             int b = pq.poll();
             sum += (a + b);
             pq.add(a + b);
         }
-
+        
         System.out.println(sum);
-        sc.close();
     }
 }
