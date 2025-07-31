@@ -9,27 +9,26 @@ public class Main {
         int N = Integer.parseInt(st.nextToken());
         int L = Integer.parseInt(st.nextToken());
 
-        int answer = 0;
+        int tapeCount = 0;
 
-        Map<Integer, Boolean> tapeMap = new TreeMap<>();
+        Set<Integer> leakLocations = new TreeSet<>();
         StringTokenizer locationSt = new StringTokenizer(br.readLine(), " ");
 
         for (int i = 0; i < N; i++) {
-            tapeMap.put(Integer.parseInt(locationSt.nextToken()), false);
+            leakLocations.add(Integer.parseInt(locationSt.nextToken()));
         }
 
-        int tapeEndLocation = 0;
+        int tapeEndLocation = -1;
 
-        for (Map.Entry<Integer, Boolean> entry : tapeMap.entrySet()) {
-            int currentLocation = entry.getKey();
-
+        for (int currentLocation : leakLocations) {
             if (currentLocation > tapeEndLocation) {
-                answer++;
+                tapeCount++;
                 tapeEndLocation = currentLocation + L - 1;
             }
         }
 
-        System.out.println(answer);
+        System.out.println(tapeCount);
+
         br.close();
     }
 }
