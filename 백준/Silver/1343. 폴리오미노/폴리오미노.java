@@ -1,55 +1,23 @@
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringBuilder sb = new StringBuilder();
 
         String input = br.readLine();
 
-        char[] arr = input.toCharArray();
+        String replaced = input.replace("XXXX", "AAAA");
 
-        int cntX = 0;
+        replaced = replaced.replace("XX", "BB");
 
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] == 'X') {
-                cntX++;
-            } else {
-                if (cntX % 2 != 0) {
-                    System.out.println("-1");
-                    return;
-                }
-                while (cntX >= 4) {
-                    sb.append("AAAA");
-                    cntX -= 4;
-                }
-
-                while (cntX >= 2) {
-                    sb.append("BB");
-                    cntX -= 2;
-                }
-
-                sb.append(".");
-            }
+        if (replaced.contains("X")) {
+            System.out.println("-1");
+        } else {
+            System.out.println(replaced);
         }
-
-        if (cntX > 0) {
-            if (cntX % 2 != 0) {
-                System.out.println("-1");
-                return;
-            }
-            while (cntX >= 4) {
-                sb.append("AAAA");
-                cntX -= 4;
-            }
-            while (cntX >= 2) {
-                sb.append("BB");
-                cntX -= 2;
-            }
-        }
-
-        System.out.println(sb.toString());
+        
         br.close();
     }
 }
