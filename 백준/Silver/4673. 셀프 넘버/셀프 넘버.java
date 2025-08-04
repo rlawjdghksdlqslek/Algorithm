@@ -3,6 +3,7 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         boolean[] arr = new boolean[10001];
 
         for (int i = 1; i <= 10000; i++) {
@@ -15,12 +16,14 @@ public class Main {
 
         for (int i = 1; i < 10000; i++) {
             if (!arr[i]) {
-                System.out.println(i);
+                bw.write(i + "\n");
             }
         }
 
+        bw.flush();
+        bw.close();
     }
-    
+
     public static int method(int num) {
         int sum = num;
 
