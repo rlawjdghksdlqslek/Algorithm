@@ -2,15 +2,30 @@ import java.util.*;
 
 public class Solution {
     public int[] solution(int []arr) {
+        int[] answer = {};
+        Queue<Integer> q = new LinkedList<>();
         List<Integer> list = new ArrayList<>();
-        list.add(arr[0]);
-        for (int i = 1; i< arr.length; i++){
-            if(list.get(list.size() -1) == arr[i]){
-                continue;
-            }
-            list.add(arr[i]);
+        
+        for(int i : arr){
+            q.add(i);
         }
-
-        return list.stream().mapToInt(Integer::intValue).toArray();
+        
+        int next = -1;
+        
+        while(!q.isEmpty()){
+            int current = q.poll();
+            
+            if(current != next){
+                list.add(current);
+                next = current;
+            }
+        }
+        
+        int[] result = new int[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+            result[i] = list.get(i);
+        }
+        
+        return result;
     }
 }
