@@ -4,35 +4,29 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         StringTokenizer st = new StringTokenizer(br.readLine());
 
         int N = Integer.parseInt(st.nextToken());
         int M = Integer.parseInt(st.nextToken());
 
-        HashMap<String, Integer> map = new HashMap<>();
-        for (int i = 0; i < N + M; i++) {
-            String input = br.readLine();
-            map.put(input, map.getOrDefault(input, 0) + 1);
+        HashSet<String> set = new HashSet<>(N);
+        for (int i = 0; i < N; i++) {
+            set.add(br.readLine());
         }
 
-        List<String> list = new ArrayList<>();
-        int cnt = 0;
-        for (Map.Entry<String, Integer> e : map.entrySet()) {
-            if (e.getValue() > 1) {
-                list.add(e.getKey());
-                cnt ++;
+        TreeSet<String> result = new TreeSet<>();
+        for (int i = 0; i < M; i++) {
+            String input = br.readLine();
+            if (set.contains(input)) {
+                result.add(input);
             }
         }
 
-        StringBuffer sb = new StringBuffer();
-        sb.append(cnt).append("\n");
-
-        Collections.sort(list);
-        for (String s : list) {
-            sb.append(s).append("\n");
+        bw.write(result.size() + "\n");
+        for (String s : result) {
+            bw.write(s + "\n");
         }
-
-        System.out.println(sb);
-
+        bw.flush();
     }
 }
