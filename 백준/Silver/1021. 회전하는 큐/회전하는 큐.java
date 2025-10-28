@@ -2,9 +2,6 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-
-    static int cnt = 0;
-
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
@@ -12,55 +9,37 @@ public class Main {
         int N = Integer.parseInt(st.nextToken());
         int M = Integer.parseInt(st.nextToken());
 
-        Deque<Integer> deque = new ArrayDeque<>();
-
+        LinkedList<Integer> deque = new LinkedList<>();
         for (int i = 1; i <= N; i++) {
-            deque.addLast(i);
+            deque.add(i);
         }
 
-        int[] arr = new int[M];
         st = new StringTokenizer(br.readLine());
-        for (int i = 0; i < M; i++) {
-            arr[i] = Integer.parseInt(st.nextToken());
-        }
+        int cnt = 0;
 
         for (int i = 0; i < M; i++) {
-            int target = arr[i];
-            int index = 0;
-            Iterator<Integer> it = deque.iterator();
-            while (it.hasNext()) {
-                if (it.next() == target) break;
-                index++;
+            int target = Integer.parseInt(st.nextToken());
+
+            int targetIdx = deque.indexOf(target);
+
+            int halfSize = deque.size() / 2;
+
+            if (targetIdx <= halfSize) {
+                for (int j = 0; j < targetIdx; j++) {
+                    deque.addLast(deque.pollFirst());
+                    cnt++;
+                }
+            }
+            else {
+                for (int j = 0; j < deque.size() - targetIdx; j++) {
+                    deque.addFirst(deque.pollLast());
+                    cnt++;
+                }
             }
 
-            int left = index;
-            int right = deque.size() - index;
-
-            if (left <= right) {
-                for (int j = 0; j < left; j++) fun2(deque);
-            } else {
-                for (int j = 0; j < right; j++) fun3(deque);
-            }
-
-            fun1(deque);  // 제거
+            deque.pollFirst();
         }
 
         System.out.println(cnt);
-        br.close();
     }
-
-    private static void fun1(Deque<Integer> deque) {
-        deque.pollFirst();
-    }
-
-    private static void fun2(Deque<Integer> deque) {
-        deque.addLast(deque.pollFirst());
-        cnt++;
-    }
-
-    private static void fun3(Deque<Integer> deque) {
-        deque.addFirst(deque.pollLast());
-        cnt++;
-    }
-
 }
